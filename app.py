@@ -53,6 +53,13 @@ with app.app_context():
     db.create_all()
 
 # --- ROUTES ---
+@app.route('/ping', methods=['GET'])
+def ping():
+    return jsonify({
+        "status": "ok",
+        "message": "Server is awake",
+        "time": datetime.now().isoformat()
+    }), 200
 
 @app.route('/')
 def home():
@@ -123,4 +130,5 @@ def admin_stats():
 if __name__ == '__main__':
     # Configuration pour le déploiement
     port = int(os.environ.get("PORT", 5000))
+
     app.run(host='0.0.0.0', port=port)
